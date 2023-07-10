@@ -1,0 +1,58 @@
+{% extends 'studentnavbar.html' %}
+{% load static %}
+{% block body %}
+ 
+<div class="container">
+  <h1 style="padding-top: 2rem">Books</h1>
+  <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">No</th>
+          <th scope="col">Book Name</th>
+          <th scope="col">Author</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+          {% csrf_token %}
+          {% for i in book %}
+            {% if i in requested %}
+              <tr>
+                  <th scope="row">{{forloop.counter}}</th>
+                  <td>
+                      <span id="span_name_{{i.id}}">{{i.name}}</span>
+                  </td>
+                  <td>
+                      <span id="span_author_{{i.id}}">{{i.author}}</span>
+                  </td>
+                  <td>
+                    <button class="btn btn-outline-dark" id='pending_book{{i.id}}' onclick='pendingbook({{i.id}})' >pending
+                    </button>
+                    <a class="btn btn-danger" id="{{i.id}}" href="{% url 'cancelrequest' i.id %}" >Cancel Request
+                    </a>
+                  </td>
+              </tr>
+            {%else%}
+                <tr>
+                  <th scope="row">{{forloop.counter}}</th>
+                  <td>
+                      <span id="span_name_{{i.id}}">{{i.name}}</span>
+                  </td>
+                  <td>
+                      <span id="span_author_{{i.id}}">{{i.author}}</span>
+                  </td>
+                  <td>
+                    <a id="{{i.id}}" class="btn btn-primary" href="{% url 'requestbooks' i.id %}">Request</a>
+                    </button>
+                  </td>
+                </tr>
+            {%endif%}
+          {%endfor%}  
+        </tbody>
+    </table>
+  </div>
+  {% endblock %}
+
+  {% block js %}
+  
+  {% endblock %}

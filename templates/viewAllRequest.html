@@ -1,0 +1,41 @@
+{% extends 'adminnavbar.html' %}
+{% load static %}
+{% block body %}
+  <div class="container">
+    <h1 style="padding-top: 2rem">Requested Books</h1>
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">No</th>
+          <th scope="col">Student Name</th>
+          <th scope="col">Book Name</th>
+          <th scope="col">Book Unique No</th>
+          <th scope="col">Requested Date</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+          {% for i in book %}
+          <tr>
+              <th scope="row">{{forloop.counter }}</th>
+              <td><span>{{i.user}}</span></td>
+              <td><span>{{i.book}}</span></td>
+              <td><span>{{i.book.bookNo}}</span></td>
+              <td><span>{{i.requested_date}}</span></td>
+              <td>
+                <a id="{{i.id}}" class="btn btn-primary" href="{% url 'acceptbookrequest' i.id %}">Accept</a>
+                <a id="{{i.id}}" class="reject btn btn-danger" href="{% url 'rejectbookrequest' i.id %}">Reject</a>
+            </td>
+          </tr>
+          {%endfor%}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
+{% block js %}
+  <script>
+        $('.reject').on('click', function() {
+          alert("Book Request Rejected ")
+      });
+  </script>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'adminnavbar.html' %}
+{% load static %}
+{% block body %}
+ 
+  <div class="container">
+    <h1 style="padding-top: 2rem" >List all Students</h1>
+    <a id="{{i.id}}" class="btn btn-primary" href="{% url 'addnewstudent' %}" role="button" style="margin-top: 2rem; margin-bottom: 2rem;">Add Student</a>
+    <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">No</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for i in students %}
+            <tr>
+                <th scope="row">{{forloop.counter }}</th>
+                <td><span>{{i.first_name}}  {{i.last_name}}</span><input id="student" hidden/></td>
+                <td><span>{{i.email}}</span><input id="book_name" hidden/></td>
+                <td>
+                  <a id="{{i.id}}" class="btn btn-warning text-white" href="{% url 'editstudents' i.id %}" role="button">Edit</a>
+                  <a id="{{i.id}}" class="btn btn-danger" href="{% url 'deletestudent' i.id %}" role="button">Delete</a>
+                </td>  
+            </tr>
+            {%endfor%}
+        </tbody>
+      </table>
+  </div>
+{% endblock %}

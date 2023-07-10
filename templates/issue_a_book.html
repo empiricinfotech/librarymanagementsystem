@@ -1,0 +1,29 @@
+{% extends 'adminnavbar.html' %}
+{% load static %}
+{% block body %}
+<div class="container">
+  <form action="" method='POST' enctype="multipart/form-data">
+      {% csrf_token %}
+      <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="userselect" required>
+          {% for i in users %}
+            <option value="{{i.email}}">{{i.email}}</option>
+          {%endfor%}
+        </select>
+
+        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="bookselect" required>
+          {%for j in books%}
+            <option value="{{j.bookNo}}">{{j.name}} By {{j.author}}({{j.bookNo}})</option>
+          {%endfor%}
+        </select>
+        <button type="submit" class="btn btn-primary">Issue A Book</button>
+  </form>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+    {% if alert %}
+      alert("{{alert}}")
+      document.location = "/issuebook"
+    {% endif %}
+</script>
+{% endblock %}

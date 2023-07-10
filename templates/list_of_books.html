@@ -1,0 +1,137 @@
+{% extends 'adminnavbar.html' %}
+{% load static %}
+{% block body %}
+ 
+    <div class="container">
+      <h1 style="padding-top: 2rem">All Books</h1>
+      <table class="table">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">No</th>
+              <th scope="col">Book Name</th>
+              <th scope="col">Author</th>
+              <th scope="col">Book Number</th>
+              <th scope="col">Qty</th>
+              <th scope="col">Available Qty</th>
+              <th scope="col">Issued Qty</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+              {% csrf_token %}
+              {% for i in book %}
+                <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>
+                      <span data-book-id="{{i.id}}"class="book-button" data-toggle="modal" data-target="#exampleModal" id="span_name_{{i.id}}">
+                        {{i.name}}
+                      </span>
+                        <input id="book_name_{{i.id}}" value="{{i.name}}" maxlength="12" class="rounded-3" size="10" hidden/>
+                    </td>
+                    <td>
+                        <span data-book-id="{{i.id}}"class="book-button" data-toggle="modal" data-target="#exampleModal" id="span_author_{{i.id}}">{{i.author}}</span>
+                        <input id="book_author_{{i.id}}" value="{{i.author}}" class="rounded-3" hidden/>
+                    </td>
+                    <td>
+                        <span data-book-id="{{i.id}}"class="book-button" data-toggle="modal" data-target="#exampleModal" id="span_bookno_{{i.id}}">{{i.bookNo}}</span>
+                        <input id="book_No_{{i.id}}" value="{{i.bookNo}}" class="rounded-3" size="12" hidden/>
+                    </td>
+                    <td>
+                        <span data-book-id="{{i.id}}"class="book-button" data-toggle="modal" data-target="#exampleModal" id="span_qty_{{i.id}}">{{i.qty}}</span>
+                        <input id="book_qty_{{i.id}}" value="{{i.qty}}" class="rounded-3" size="12" hidden/>
+                    </td>
+                    <td>
+                        <span data-book-id="{{i.id}}"class="book-button" data-toggle="modal" data-target="#exampleModal" id="span_avaiable_qty_{{i.id}}">{{i.available_qty}}</span>
+                        <input id="book_available_qty_{{i.id}}" value="{{i.available_qty}}" class="rounded-3" size="12" hidden/>
+                    </td>
+                    <td>
+                        <span data-book-id="{{i.id}}"class="book-button" data-toggle="modal" data-target="#exampleModal" id="span_issued_qty_{{i.id}}">{{i.issued_qty}}</span>
+                        <input id="book_issued_qty_{{i.id}}" value="{{i.issued_qty}}" class="rounded-3" size="12" hidden/>
+                    </td>
+                    <td>
+                        <button class="btn btn-warning text-white" id='update_pen{{i.id}}' onclick='datachange({{i.id}})' >Edit
+                        </button>
+                        <button class="btn btn-primary" id='edit_data{{i.id}}' onclick='postchange({{i.id}})'hidden>Save
+                        </button>
+                        <a href="{% url 'deletebook' i.id %}" id="{{i.id}}" role="button" class="deletebook btn btn-danger" >Delete</a> 
+                    </td>
+                </tr>
+              {%endfor%}
+          </tbody>
+        </table>
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title fw-bold text-start" id="exampleModalLabel">Book Details</h4>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label for="recipient-name" class="col-form-label">Book Id:</label>
+                <span id="bookid">Bookname</span>
+              </div>
+              <div class="form-group">
+                <label for="recipient-name" class="col-form-label">Book Name:</label>
+                <span id="booknm">Bookname</span>
+              </div>
+              <div class="form-group">
+                <label for="recipient-name" class="col-form-label">Author:</label>
+                <span id="bookauthor">Bookname</span>
+              </div>
+              <div class="form-group">
+                <label for="recipient-name" class="col-form-label">Publication:</label>
+                <span id="bookpublisher">Bookname</span>
+              </div>
+              <div class="form-group">
+                <label for="recipient-name" class="col-form-label">QTY:</label>
+                <span id="bookqty">Bookname</span>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}
+{% block js %}
+  <script>
+    $('.deletebook').on('click',function(){
+      alert("Book Deleted")
+    })
+
+    function showBookDetails(bookId) {
+      $.ajax({
+        url: '/getbook/' + bookId,
+        type: 'GET',
+        success: function(response) {
+          console.log(response)
+          console.log(response[0]['bookNo'],"pppp")
+          document.getElementById("bookid").innerHTML=response[0]['bookNo'];
+          document.getElementById("booknm").innerHTML=response[0]['name'];
+          document.getElementById("bookauthor").innerHTML=response[0]['author'];
+          document.getElementById("bookpublisher").innerHTML=response[0]['publication'];
+          document.getElementById("bookqty").innerHTML=response[0]['qty'];
+
+        },
+        error: function(error) {
+          console.log("error");
+        }
+      });
+    }
+    
+      $('.book-button').on('click', function() {
+        console.log("[[[[[[[[[]]]]]]]]]",$(this))
+        var bookId = $(this).data('book-id');
+        console.log("hoooooo thayu ",bookId)
+        showBookDetails(bookId);
+      });
+  </script>
+  <script src="{% static 'js/editbook.js' %}" type="text/javascript"> </script>
+{% endblock %}
+
+
+

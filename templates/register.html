@@ -1,0 +1,56 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    
+        <title>{% block title %} {% endblock %}</title>
+        {% block css %}
+        {% endblock %}
+      </head>
+      <body>
+        <div class="container">
+          <div class="d-flex flex-column justify-conent-center border-2 ">
+            <h1 class="text-center m-5">Sign Up</h1> 
+            <form class="" method="POST"> 
+              {%csrf_token%}       
+              <div class="d-flex flex-column justify-content-center align-items-center ">
+                  <div class="form-floating col-sm-4 mb-3">
+                    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email" required>
+                    <label for="floatingInput">Email address</label>
+                  </div>
+                  <div class="form-floating col-sm-4 mb-3">
+                    <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" name="firstname" required>
+                    <label for="floatingInput">First Name</label>
+                  </div>                  <div class="form-floating col-sm-4 mb-3">
+                    <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" name="lastname" required>
+                    <label for="floatingInput">Last Name</label>
+                  </div>                  <div class="form-floating col-sm-4 mb-3">
+                    <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" name="username" required>
+                    <label for="floatingInput">User Name</label>
+                  </div>
+                  <div class="form-floating col-sm-4 mb-3">
+                    <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password" required>
+                    <label for="floatingPassword">Password</label>
+                  </div>
+                  <div class="form-floating col-sm-4 mb-3">
+                    <input type="password" class="form-control" id="floatingPassword" placeholder="Confirm Password" name="confirmpassword" required>
+                    <label for="floatingPassword">Confirm Password</label>
+                  </div>
+                  <button class=" col-sm-4 btn btn-lg btn-primary" type="submit">Sign Up</button>
+                  <div class="justify-content-center align-items-center m-3">
+                    <a class="col-sm-4 m-3" href="/login/">Already have an Account</a>
+                  </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <script>
+          {% if alert %}
+          alert("{{alert}}")
+          document.location = "/register/"
+          {% endif %}
+        </script>
+      </body>
+</html>

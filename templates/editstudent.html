@@ -1,0 +1,45 @@
+{% include 'adminnavbar.html' %}
+{% load static %}
+{% block body %}
+<div class="container"> 
+    <h1 class="text-center">Edit Student's Details</h1>
+    <div class="container">
+        <form method='POST' >
+            {% csrf_token %}
+            <div class="row mb-3">
+              <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+              <div class="col-sm-10">
+                <input type="email" class="form-control" id="inputEmail3" name="email" value="{{user.email}}" required>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label for="inputUserName" class="col-sm-2 col-form-label">First Name</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="inputUserName" name="firstname" value="{{user.first_name}}" required>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label for="inputUserName" class="col-sm-2 col-form-label">Last Name</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="inputUserName" name="lastname" value="{{user.last_name}}" required>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label for="inputUserName" class="col-sm-2 col-form-label">User Name</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="inputUserName" name="username" value="{{user.username}}" required>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Update</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+    {% if alert %}
+    alert("{{alert}}")
+    {% endif %}
+</script>
+{% endblock %}

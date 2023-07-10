@@ -1,0 +1,37 @@
+{% extends 'adminnavbar.html' %}
+{% load static %}
+{% block body %}
+        <div class="">
+          <div class="">
+            <h1 class="text-center m-5">Add New Student</h1> 
+            <form class="" method="POST"> 
+              {%csrf_token%}       
+              <div class="container ">
+                  <div class="">
+                      <div class="form-floating  mb-3 flex justify-center">
+                        <input type="email" class="form-control " id="floatingInput" placeholder="name@example.com" name="email" required>
+                        <label for="floatingInput">Email address</label>
+                      </div>
+                      <div class="form-floating  mb-3">
+                        <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" name="firstname" required>
+                        <label for="floatingInput">First Name</label>
+                      </div>                 
+                      <div class="form-floating  mb-3">
+                        <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" name="lastname" required>
+                        <label for="floatingInput">Last Name</label>
+                      </div>                  
+                      <div class="form-floating  mb-3">
+                        <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com" name="username" required>
+                        <label for="floatingInput">User Name</label>
+                      </div>
+                      <div class="form-floating mb-3">
+                        <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password" required>
+                        <label for="floatingPassword">Password</label>
+                      </div>
+                      <button class="btn btn-lg btn-primary" type="submit">Add New Student</button>
+                  </div>
+              </div>
+            </form>
+          </div>
+        </div>
+{% endblock %}

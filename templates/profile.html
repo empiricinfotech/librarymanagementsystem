@@ -1,0 +1,56 @@
+{% if request.user.is_superuser  %}
+{% include 'adminnavbar.html' %}
+{%else%}
+{% include 'studentnavbar.html' %}
+{% endif %}
+{% load static %}
+{% block body %}
+    <div class="container">
+        <h1 class="mb-5" style="padding-top: 2rem">Profile</h1>
+        <div class="row mb-3">
+            {% csrf_token %}
+            <label for="firstname" class="col-sm-2  font-weight-bold ">First Name</label>
+            <div class="col-sm-10">
+                <span class="spandata">{{user.first_name}}</span>
+                <input type="text" class="inputval form-control" id="firstnm" name="firstname" value="{{user.first_name}}" hidden>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="lastname" class="col-sm-2 col-form-label font-weight-bold">Last Name</label>
+            <div class="col-sm-10">
+                <span class="spandata">{{user.last_name}}</span>
+                <input type="text" class="inputval form-control" id="lastnm" name="lastname" value="{{user.last_name}}" hidden>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="username" class="col-sm-2 col-form-label font-weight-bold">User Name</label>
+            <div class="col-sm-10">
+                <span class="spandata">{{request.user.username}}</span>
+                <input type="text" class="inputval form-control" id="usernm" name="username" value="{{request.user.username}}" hidden>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="email" class="col-sm-2 col-form-label font-weight-bold">Email Address</label>
+            <div class="col-sm-10">
+                <span class="spandata">{{user.email}}</span>
+                <input type="email" class="inputval form-control" id="emailid" name="email" value="{{user.email}}" hidden>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-sm-10">
+                <button class="btn btn-warning" id='update_profile' onclick='updateprofile()' >Edit profile</button>
+                <button class="btn btn-primary" id='done_edit' onclick='donechanges()' hidden>Done</button>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block js %}
+    <script>
+        {% if alert %}
+        alert("{{alert}}")
+        document.location = "/profile"
+        {% endif %}
+    </script>
+    <script src="{% static 'js/editprofile.js' %}" type="text/javascript"> </script>
+{% endblock %}
+

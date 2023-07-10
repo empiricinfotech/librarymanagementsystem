@@ -1,0 +1,44 @@
+{% extends 'adminnavbar.html' %}
+{% load static %}
+{% block body %}
+ 
+  <div class="container">
+    <h1 style="padding-top: 2rem">Issued Books</h1>
+    <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">No</th>
+            <th scope="col">Student Name</th>
+            <th scope="col">Book Name</th>
+            <th scope="col">Book Unique No</th>
+            <th scope="col">Issued Date</th>
+            <th scope="col">Expiry Date</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for i in book %}
+              <tr>
+                  <th scope="row">{{forloop.counter }}</th>
+                  <td><span>{{i.user}}</span><input id="student" hidden/></td>
+                  <td><span>{{i.book}}</span><input id="book_name" hidden/></td>
+                  <td><span>{{i.book.bookNo}}</span><input id="book_no" hidden/></td>
+                  <td><span>{{i.issued_date}}</span><input id="book_issue_date" hidden/></td>
+                  <td><span>{{i.expiry_date}}</span><input id="book_expiry_date" hidden/></td>
+                  <td>
+                    <a id="{{i.id}}" class="btn btn-primary" href="{% url 'returnbook' i.id %}">Return</a>
+                    <a id="{{i.id}}" class="deleteIssuedbook btn btn-danger" href="{% url 'deleteIssuedbook' i.id %}">Delete</a>
+                </td>
+              </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+  </div>
+{% endblock %}
+{% block js%}
+  <script>
+    $('.deleteIssuedbook').on('click',function(){
+      alert("book deleted")
+    })
+  </script>
+{% endblock %}
