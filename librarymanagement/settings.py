@@ -156,8 +156,8 @@ ACCOUNT_EMAIL_VERIFICATION = "none"
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         'APP': {
-            'client_id': '790976458008-31qo754i382tlckg486vv12p75p1kq6i.apps.googleusercontent.com',
-            'secret': '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',
+            'client_id': os.environ.get('CLIENT_ID'),
+            'secret': os.environ.get('CLINET_SCERET'),
             'key': ''
         },
         'SCOPE': [
