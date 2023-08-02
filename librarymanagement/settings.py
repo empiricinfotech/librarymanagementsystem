@@ -167,8 +167,8 @@ SOCIALACCOUNT_PROVIDERS = {
     },
     'linkedin': {
         'APP': {
-            'client_id': '77o4dhjsrfqx4q',
-            'secret': 'yqyvjNd2PGXMKbax',
+            'client_id': os.environ.get('LINKED_IN_CLIENT_ID'),
+            'secret': os.environ.get('LINKED_IN_SCERET'),
             'key': ''
         },
         'SCOPE': [
